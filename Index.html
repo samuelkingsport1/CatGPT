@@ -1,46 +1,47 @@
 <!DOCTYPE html>
-<html style="height: 100%;">
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-        }
         :root {
             --black: hsla(0, 0%, 0%, 1);
             --white: hsla(0, 0%, 99%, 1);
             --black-2: hsla(0, 0%, 0%, 1);
             --coffee: hsla(23, 37%, 36%, 1);
             --charcoal: hsla(198, 17%, 30%, 1);
+            --light-coffee: hsla(23, 37%, 66%, 1);
         }
         body {
             background-color: var(--charcoal);
             font-family: Arial, sans-serif;
-            height: 100%;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            box-sizing: border-box;
             overflow: hidden;
         }
         .app {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
             background-color: var(--white);
             border-radius: 5px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
         }
-        .messages {
+        .chat-window {
+            overflow: auto;
             flex-grow: 1;
-            overflow-y: auto;
+            margin-bottom: 20px;
         }
         .chat-input {
             width: 100%;
             padding: 10px;
+            margin-top: 20px;
             border-radius: 5px;
             border: 1px solid var(--black);
             box-sizing: border-box;
@@ -49,17 +50,24 @@
             display: block;
             width: 100%;
             padding: 10px;
+            margin-top: 10px;
             border-radius: 5px;
             border: none;
             background-color: var(--coffee);
             color: var(--white);
+            text-align: center;
+        }
+        .chat-button.inactive {
+            background-color: var(--light-coffee);
+            pointer-events: none;
         }
         .message {
             max-width: 80%;
             margin: 10px;
             padding: 10px;
             border-radius: 10px;
-            background-color: var(--coffee);
+            background-color: var(--black-2);
+            color: var(--white);
             box-sizing: border-box;
             transition: all 0.5s ease-in-out;
             opacity: 0;
@@ -71,13 +79,11 @@
         }
         .user {
             text-align: right;
-            color: var(--black);
             margin-left: auto;
             margin-right: 0;
         }
         .bot {
             text-align: left;
-            color: var(--black);
             margin-right: auto;
             margin-left: 0;
             animation: slam 0.5s;
@@ -90,27 +96,49 @@
             display: inline-block;
             transition: opacity 0.5s;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         @keyframes slam {
-            0% { transform: translateY(20px); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
 <body>
     <div id="app" class="app">
-        <h1 style="color: var(--black);">CatBot 3000</h1>
-        <div class="messages">
-            <div v-for="message in messages" :class="['message', 'show', message.sender]" :key="message.id">
+        <div class="chat-window">
+            <div 
+                class="message" 
+                v-for="message in messages" 
+                :class="[message.sender, { show: message.show }]" 
+                :key="message.id">
                 {{ message.text }}
-                <i class="fa fa-spinner" :class="{ show: message.sender === 'bot' && message.loading }"></i>
             </div>
         </div>
-        <input type="text" v-model="input" @keyup.enter="sendMessage" class="chat-input">
-        <button @click="sendMessage" class="chat-button">Ask</button>
+        <input 
+            v-model="input" 
+            @keyup.enter="sendMessage" 
+            class="chat-input" 
+            placeholder="Type a message...">
+        <button 
+            @click="isThinking ? null : sendMessage" 
+            v-bind:class="{ inactive: isThinking }" 
+            class="chat-button">
+            <i class="fa fa-spinner" v-if="isThinking"></i>
+            <span v-else>Ask</span>
+        </button>
     </div>
     <script>
         new Vue({
@@ -118,19 +146,31 @@
             data: {
                 input: '',
                 messages: [],
-                id: 0
+                id: 0,
+                isThinking: false
             },
             methods: {
+                addMessage(text, sender) {
+                    let id = this.id++;
+                    this.messages.push({ text: text, sender: sender, id: id, show: false });
+                },
                 sendMessage() {
                     if (this.input) {
-                        let id = this.id++;
-                        this.messages.push({ text: this.input, sender: 'user', id: id });
+                        this.addMessage(this.input, 'user');
                         this.input = '';
-                        this.messages.push({ text: 'Thinking...', sender: 'bot', id: id, loading: true });
+                        this.isThinking = true;
                         setTimeout(() => {
-                            this.messages[this.messages.length - 1].text = 'Meow!';
-                            this.messages[this.messages.length - 1].loading = false;
-                        }, 2000);
+                            this.messages[this.messages.length - 1].show = true;
+                        }, 500);
+                        setTimeout(() => {
+                            this.addMessage('No.', 'bot');
+                            setTimeout(() => {
+                                this.messages[this.messages.length - 1].show = true;
+                            }, 500);
+                        }, Math.floor(Math.random() * 2000) + 1000);
+                        setTimeout(() => {
+                            this.isThinking = false;
+                        }, Math.floor(Math.random() * 2000) + 2000);
                     }
                 }
             }
