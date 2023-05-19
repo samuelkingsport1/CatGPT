@@ -32,12 +32,29 @@
             background-color: #4d94ff;
             color: #ffffff;
         }
+        .message {
+            max-width: 80%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgba(77, 148, 255, 0.1);
+        }
+        .user {
+            text-align: right;
+            color: #003366;
+        }
+        .bot {
+            text-align: left;
+            color: #4d94ff;
+        }
     </style>
 </head>
 <body>
     <div id="app" class="app">
         <h1>CatBot 3000</h1>
-        <p>{{ message }}</p>
+        <div v-for="msg in messages" class="message" :class="msg.class">
+            {{ msg.text }}
+        </div>
         <input v-model="input" class="chat-input" placeholder="Ask me anything...">
         <button @click="askQuestion" class="chat-button">Ask</button>
     </div>
@@ -46,15 +63,16 @@
         new Vue({
             el: '#app',
             data: {
-                message: 'Ask me anything...',
+                messages: [],
                 input: ''
             },
             methods: {
                 askQuestion: function() {
-                    this.message = 'Thinking...';
+                    this.messages.push({ text: this.input, class: 'user' });
                     this.input = '';
+                    this.messages.push({ text: 'Thinking...', class: 'bot' });
                     setTimeout(() => {
-                        this.message = 'No.';
+                        this.messages[this.messages.length - 1].text = 'No.';
                     }, Math.floor(Math.random() * 2000) + 1000);
                 }
             }
