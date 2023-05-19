@@ -34,10 +34,12 @@
             border-radius: 5px;
         }
         .chat-window {
-            overflow: auto;
-            flex-grow: 1;
-            margin-bottom: 20px;
-        }
+    overflow: auto;
+    flex-grow: 1;
+    margin-bottom: 20px;
+    max-height: 80vh; 
+}
+
         .chat-input {
             width: 100%;
             padding: 10px;
@@ -142,39 +144,35 @@
     </div>
     <script>
         new Vue({
-            el: '#app',
-            data: {
-                input: '',
-                messages: [],
-                id: 0,
-                isThinking: false
-            },
-            methods: {
-                addMessage(text, sender) {
-                    let id = this.id++;
-                    this.messages.push({ text: text, sender: sender, id: id, show: false });
-                },
-                sendMessage() {
-                    if (this.input) {
-                        this.addMessage(this.input, 'user');
-                        this.input = '';
-                        this.isThinking = true;
-                        setTimeout(() => {
-                            this.messages[this.messages.length - 1].show = true;
-                        }, 500);
-                        setTimeout(() => {
-                            this.addMessage('No.', 'bot');
-                            setTimeout(() => {
-                                this.messages[this.messages.length - 1].show = true;
-                            }, 500);
-                        }, Math.floor(Math.random() * 2000) + 1000);
-                        setTimeout(() => {
-                            this.isThinking = false;
-                        }, Math.floor(Math.random() * 2000) + 2000);
-                    }
-                }
+    el: '#app',
+    data: {
+        input: '',
+        messages: [],
+        id: 0,
+        isThinking: false
+    },
+    methods: {
+        addMessage(text, sender) {
+            let id = this.id++;
+            this.messages.push({ text: text, sender: sender, id: id, show: false });
+            setTimeout(() => {
+                this.messages[this.messages.length - 1].show = true;
+            }, 500);
+        },
+        sendMessage() {
+            if (this.input) {
+                this.addMessage(this.input, 'user');
+                this.input = '';
+                this.isThinking = true;
+                setTimeout(() => {
+                    this.addMessage('No.', 'bot');
+                    this.isThinking = false;
+                }, Math.floor(Math.random() * 2000) + 1000);
             }
-        });
+        }
+    }
+});
+
     </script>
 </body>
 </html>
