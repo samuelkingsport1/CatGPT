@@ -89,18 +89,16 @@
     </style>
 </head>
 <body style="height: 100%; margin: 0;">
-    <div id="app" class="app" style="height: 100vh; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-            <h1 style="color: var(--black);">CatBot 3000</h1>
+    <div id="app" class="app" style="height: 100vh; display: flex; flex-direction: column;">
+        <h1 style="color: var(--black);">CatBot 3000</h1>
+        <div style="flex-grow: 1; overflow-y: auto; margin-bottom: 10px;">
             <div v-for="(msg, index) in messages" :key="index" class="message" :class="[msg.class, { show: msg.show }]">
                 {{ msg.text }}
             </div>
             <i v-if="isThinking" class="fa fa-spinner fa-spin show"></i>
         </div>
-        <div>
-            <input v-model="input" class="chat-input" placeholder="Ask me anything...">
-            <button @click="askQuestion" class="chat-button">Ask</button>
-        </div>
+        <input v-model="input" class="chat-input" placeholder="Ask me anything...">
+        <button @click="askQuestion" class="chat-button">Ask</button>
     </div>
 
     <script>
