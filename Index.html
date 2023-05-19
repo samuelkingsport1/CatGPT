@@ -60,17 +60,12 @@
             margin-right: auto;
             margin-left: 0;
         }
-        .spinner {
+        .fa-spinner {
             display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #3498db;
-            border-radius: 50%;
-            animation: spin 2s linear infinite;
+            animation: spin 1s infinite;
         }
-        .spinner.show {
-            display: block;
+        .fa-spinner.show {
+            display: inline-block;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -81,12 +76,10 @@
 <body>
     <div id="app" class="app">
         <h1>CatBot 3000</h1>
-        <transition-group name="bounce">
-            <div v-for="(msg, index) in messages" :key="index" class="message show" :class="msg.class">
-                {{ msg.text }}
-            </div>
-        </transition-group>
-        <div v-show="isThinking" class="spinner show"></div>
+        <div v-for="(msg, index) in messages" :key="index" class="message show" :class="msg.class">
+            {{ msg.text }}
+        </div>
+        <i v-show="isThinking" class="fa fa-spinner show"></i>
         <input v-model="input" class="chat-input" placeholder="Ask me anything...">
         <button @click="askQuestion" class="chat-button">Ask</button>
     </div>
@@ -100,15 +93,17 @@
                 isThinking: false
             },
             methods: {
-                askQuestion: function() {
-                    this.messages.push({ text: this.input, class: 'user' });
-                   ```javascript
-                    this.input = '';
-                    this.isThinking = true;
-                    setTimeout(() => {
-                        this.isThinking = false;
-                        this.messages.push({ text: 'No.', class: 'bot' });
-                    }, Math.floor(Math.random() * 2000) + 1000);
+                askQuestion: function```javascript
+() {
+                    if(this.input.trim() !== '') {
+                        this.messages.push({ text: this.input, class: 'user' });
+                        this.input = '';
+                        this.isThinking = true;
+                        setTimeout(() => {
+                            this.isThinking = false;
+                            this.messages.push({ text: 'No.', class: 'bot' });
+                        }, Math.floor(Math.random() * 2000) + 1000);
+                    }
                 }
             }
         });
