@@ -103,7 +103,6 @@
 <body>
     <div id="app" class="app">
         <h1 style="color: var(--black);">CatBot 3000</h1>
-       ```html
         <div class="messages">
             <div v-for="message in messages" :class="['message', 'show', message.sender]" :key="message.id">
                 {{ message.text }}
