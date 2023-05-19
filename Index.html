@@ -57,15 +57,10 @@
             color: var(--white);
             text-align: center;
         }
-        .chat-button.inactive {
-            background-color: var(--light-coffee);
-            pointer-events: none;
-        }
         .chat-button:disabled {
-    background-color: var(--light-coffee);
-    color: var(--black);
-}
-
+            background-color: var(--light-coffee);
+            color: var(--black);
+        }
         .message {
             max-width: 80%;
             margin: 10px;
@@ -137,14 +132,13 @@
             @keyup.enter="sendMessage" 
             class="chat-input" 
             placeholder="Type a message...">
-            <button 
+        <button 
             @click="sendMessage" 
             :disabled="isThinking" 
             class="chat-button">
             <i class="fa fa-spinner" v-if="isThinking"></i>
             <span v-else>Ask</span>
         </button>
-        
     </div>
     <script>
         new Vue({
