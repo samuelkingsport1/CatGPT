@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -88,8 +88,8 @@
         }
     </style>
 </head>
-<body>
-    <div id="app" class="app">
+<body style="height: 100%; margin: 0;">
+    <div id="app" class="app" style="height: 100vh;">
         <h1 style="color: var(--black);">CatBot 3000</h1>
         <div v-for="(msg, index) in messages" :key="index" class="message" :class="[msg.class, { show: msg.show }]">
             {{ msg.text }}
