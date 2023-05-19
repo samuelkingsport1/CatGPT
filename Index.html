@@ -93,13 +93,11 @@
         <div v-for="(msg, index) in messages" :key="index" class="message" :class="[msg.class, { show: msg.show }]">
             {{ msg.text }}
         </div>
-        <iMy apologies for the abrupt cut-off. Here's the remaining part of the HTML code:
-
-```html
         <i v-if="isThinking" class="fa fa-spinner fa-spin show"></i>
         <input v-model="input" class="chat-input" placeholder="Ask me anything...">
         <button @click="askQuestion" class="chat-button">Ask</button>
     </div>
+
 
     <script>
         new Vue({
