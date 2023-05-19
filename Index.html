@@ -3,8 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body {
             background-color: #e6f2ff;
@@ -42,6 +41,12 @@
             border-radius: 10px;
             background-color: rgba(77, 148, 255, 0.1);
             box-sizing: border-box;
+            transition: all 0.5s ease-in-out;
+            opacity: 0;
+        }
+        .message.show {
+            opacity: 1;
+            transform: translateY(-20px);
         }
         .user {
             text-align: right;
@@ -55,15 +60,33 @@
             margin-right: auto;
             margin-left: 0;
         }
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+        .spinner.show {
+            display: block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <div id="app" class="app">
         <h1>CatBot 3000</h1>
-        <div v-for="msg in messages" class="message" :class="msg.class" v-show="msg.show" :class="{'animate__bounceInUp': msg.user, 'animate__bounceInDown': msg.bot}">
-            <i class="fas fa-spinner fa-spin" v-if="msg.loading"></i>
-            <span v-else>{{ msg.text }}</span>
-        </div>
+        <transition-group name="bounce">
+            <div v-for="(msg, index) in messages" :key="index" class="message show" :class="msg.class">
+                {{ msg.text }}
+            </div>
+        </transition-group>
+        <div v-show="isThinking" class="spinner show"></div>
         <input v-model="input" class="chat-input" placeholder="Ask me anything...">
         <button @click="askQuestion" class="chat-button">Ask</button>
     </div>
@@ -73,25 +96,22 @@
             el: '#app',
             data: {
                 messages: [],
-                input: ''
+                input: '',
+                isThinking: false
             },
             methods: {
                 askQuestion: function() {
-                    this.messages.push({ text: this.input, show: true, user: true, bot: false, loading: false });
+                    this.messages.push({ text: this.input, class: 'user' });
+                   ```javascript
                     this.input = '';
+                    this.isThinking = true;
                     setTimeout(() => {
-                        this.messages.push({ text: '', show: true, user: false, bot: true, loading: true });
-                        setTimeout(() => {
-                            this.messages[this.messages.length - 1].loading = false{
-    "quote": "<i class=\"fas fa-spinner fa-spin\" v-if=\"msg.loading\"></i>\n            <span v-else>{{ msg.text }}</span>\n        </div>\n        <input v-model=\"input\" class=\"chat-input\" placeholder=\"Ask me anything...\">\n        <button @click=\"askQuestion\" class=\"chat-button\">Ask</button>\n    </div>\n\n    <script>\n        new Vue({\n            el: '#app',\n            data: {\n                messages: [],\n                input: ''\n            },\n            methods: {\n           ..."
-}
-                                                        this.messages[this.messages.length - 1].text = 'No.';
-                        }, Math.floor(Math.random() * 2000) + 1000);
-                    }, 1000);
+                        this.isThinking = false;
+                        this.messages.push({ text: 'No.', class: 'bot' });
+                    }, Math.floor(Math.random() * 2000) + 1000);
                 }
             }
         });
     </script>
 </body>
 </html>
-
