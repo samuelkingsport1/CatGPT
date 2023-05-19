@@ -11,6 +11,7 @@
             --black-2: hsla(0, 0%, 0%, 1);
             --coffee: hsla(23, 37%, 36%, 1);
             --charcoal: hsla(198, 17%, 30%, 1);
+            --light-grey: hsla(0, 0%, 90%, 1);
         }
         body {
             background-color: var(--charcoal);
@@ -46,7 +47,7 @@
             margin: 10px;
             padding: 10px;
             border-radius: 10px;
-            background-color: var(--white);
+            background-color: var(--light-grey);
             box-sizing: border-box;
             transition: all 0.5s ease-in-out;
             opacity: 0;
@@ -98,7 +99,6 @@
         <button @click="askQuestion" class="chat-button">Ask</button>
     </div>
 
-
     <script>
         new Vue({
             el: '#app',
@@ -114,15 +114,15 @@
                         this.input = '';
                         setTimeout(() => {
                             this.messages[this.messages.length - 1].show = true;
-                        }, 500);
-                        this.isThinking = true;
-                        setTimeout(() => {
-                            this.isThinking = false;
-                            this.messages.push({ text: 'No.', class: 'bot', show: false });
+                            this.isThinking = true;
                             setTimeout(() => {
-                                this.messages[this.messages.length - 1].show = true;
-                            }, 500);
-                        }, Math.floor(Math.random() * 2000) + 1000);
+                                this.isThinking = false;
+                                this.messages.push({ text: 'No.', class: 'bot', show: false });
+                                setTimeout(() => {
+                                    this.messages[this.messages.length - 1].show = true;
+                                }, 500);
+                            }, Math.floor(Math.random() * 2000) + 1000);
+                        }, 500);
                     }
                 }
             }
