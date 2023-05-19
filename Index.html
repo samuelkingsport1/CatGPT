@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+        body {
+            background-color: #e6f2ff;
+            font-family: Arial, sans-serif;
+        }
+        .app {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+        }
+        .chat-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #66a3ff;
+        }
+        .chat-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4d94ff;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="app">
+        <h1>CatBot 3000</h1>
+        <p>{{ message }}</p>
+        <input v-model="input" class="chat-input" placeholder="Ask me anything...">
+        <button @click="askQuestion" class="chat-button">Ask</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Ask me anything...',
+                input: ''
+            },
+            methods: {
+                askQuestion: function() {
+                    this.message = 'Thinking...';
+                    this.input = '';
+                    setTimeout(() => {
+                        this.message = 'No.';
+                    }, Math.floor(Math.random() * 2000) + 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
