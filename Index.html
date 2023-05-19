@@ -76,10 +76,10 @@
 <body>
     <div id="app" class="app">
         <h1>CatBot 3000</h1>
-        <div v-for="(msg, index) in messages" :key="index" class="message show" :class="msg.class">
+        <div v-for="(msg, index) in messages" :key="index" class="message" :class="msg.class" v-show="msg.text !== ''">
             {{ msg.text }}
         </div>
-        <i v-show="isThinking" class="fa fa-spinner show"></i>
+        <i v-if="isThinking" class="fa fa-spinner show"></i>
         <input v-model="input" class="chat-input" placeholder="Ask me anything...">
         <button @click="askQuestion" class="chat-button">Ask</button>
     </div>
@@ -93,15 +93,15 @@
                 isThinking: false
             },
             methods: {
-                askQuestion: function```javascript
-() {
+                askQuestion: function() {
                     if(this.input.trim() !== '') {
                         this.messages.push({ text: this.input, class: 'user' });
                         this.input = '';
                         this.isThinking = true;
                         setTimeout(() => {
                             this.isThinking = false;
-                            this.messages.push({ text: 'No.', class: 'bot' });
+                            this.messages.push({ text```javascript
+: 'No.', class: 'bot' });
                         }, Math.floor(Math.random() * 2000) + 1000);
                     }
                 }
