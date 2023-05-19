@@ -97,7 +97,7 @@
                     if(this.input.trim() !== '') {
                         this.messages.push({ text: this.input, class: 'user', show: true });
                         this.input = '';
-                        this.isThinking =```javascript true;
+                        this.isThinking = true;
                         setTimeout(() => {
                             this.isThinking = false;
                             this.messages.push({ text: 'No.', class: 'bot', show: true });
@@ -107,5 +107,6 @@
             }
         });
     </script>
+
 </body>
 </html>
