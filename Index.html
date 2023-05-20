@@ -91,9 +91,21 @@
             margin-left: 0;
             animation: slam 0.5s;
         }
-        .fa-spinner {
-    animation: spin 2s linear infinite;
+        .fa-spin {
+    -webkit-animation: spin 2s infinite linear;
+    animation: spin 2s infinite linear;
 }
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
         .fa-spinner.show {
             display: inline-block;
@@ -107,14 +119,6 @@
             100% {
                 transform: translateY(0);
                 opacity: 1;
-            }
-        }
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
             }
         }
         @keyframes bounce {
