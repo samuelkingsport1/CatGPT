@@ -158,10 +158,11 @@
 <body>
     <div id="app" class="app">
         <div class="header">
-            <h1 class="header-title">Chat with Cat</h1>
+            <h1 class="header-title">CatGPT</h1>
             <a href="/about.html" class="about-link">About</a>
         </div>
-        <div class="chat-window">
+        <div class="chat-window" ref="chatWindow">
+        
             <div 
                 class="message" 
                 v-for="message in messages" 
@@ -186,38 +187,50 @@
         
     </div>
     <script>
-new Vue({
-    el: '#app',
-    data: {
-        input: '',
-        messages: [],
-        id: 0,
-        isThinking: false
-    },
-    methods: {
-        addMessage(text, sender) {
-            let id = this.id++;
-            this.messages.push({ text: text, sender: sender, id: id, show: false });
-            this.$nextTick(() => {
-                this.messages[this.messages.length - 1].show = true;
-            });
-        },
-        sendMessage() {
-    if (this.isThinking || !this.input) {
-        return;
-    }
-    this.addMessage(this.input, 'user');
-    this.input = '';
-    this.isThinking = true;
-    setTimeout(() => {
-        this.addMessage('No.', 'bot');
-        this.isThinking = false;
-    }, Math.floor(Math.random() * 2000) + 1000);
-}
-
-    }
-});
-
+        new Vue({
+            el: '#app',
+            data: {
+                input: '',
+                messages: [],
+                id: 0,
+                isThinking: false
+            },
+            methods: {
+                addMessage(text, sender) {
+                    let id = this.id++;
+                    this.messages.push({ text: text, sender: sender, id: id, show: false });
+                },
+                sendMessage() {
+                    if (this.isThinking || !this.input) {
+                        return;
+                    }
+                    this.addMessage(this.input, 'user');
+                    this.input = '';
+                    this.isThinking = true;
+                    setTimeout(() => {
+                        this.messages[this.messages.length - 1].show = true;
+                        this.scrollToBottom();
+                    }, 500);
+                    setTimeout(() => {
+                        this.addMessage('No.', 'bot');
+                        setTimeout(() => {
+                            this.messages[this.messages.length - 1].show = true;
+                            this.scrollToBottom();
+                        }, 500);
+                    }, Math.floor(Math.random() * 2000) + 1000);
+                    setTimeout(() => {
+                        this.isThinking = false;
+                        this.scrollToBottom();
+                    }, Math.floor(Math.random() * 2000) + 2000);
+                },
+                scrollToBottom() {
+                    this.$nextTick(() => {
+                        this.$refs.chatWindow.scrollTop = this.$refs.chatWindow.scrollHeight;
+                    });
+                }
+            }
+        });
     </script>
+    
 </body>
 </html>
