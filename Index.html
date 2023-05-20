@@ -18,7 +18,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100vh;
+            height: 100var(--vh);
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(100vh - 40px); /* Adjust the height by subtracting the padding from the viewport height */
+    height: calc(100var(--vh) - 40px);
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -54,7 +54,7 @@
     overflow-y: auto;
     flex-grow: 1;
     margin-bottom: 20px;
-    max-height: calc(100vh - 120px); /* Adjust this value based on your layout */
+    max-height: calc(100var(--vh) - 120px);
 }
 
         .chat-input {
@@ -186,6 +186,16 @@
         
         
     </div>
+    <script>
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        window.addEventListener('resize', setVH);
+        window.addEventListener('orientationchange', setVH);
+        document.addEventListener('DOMContentLoaded', setVH);
+    </script>
+    
     <script>
         new Vue({
             el: '#app',
