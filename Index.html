@@ -142,7 +142,7 @@
         </button>
     </div>
     <script>
-       new Vue({
+new Vue({
     el: '#app',
     data: {
         input: '',
@@ -152,25 +152,24 @@
     },
     methods: {
         addMessage(text, sender) {
-    let id = this.id++;
-    this.messages.push({ text: text, sender: sender, id: id, show: false });
-    this.$nextTick(() => {
-        this.messages[this.messages.length - 1].show = true;
-    });
-},
-
-sendMessage() {
-    if (this.input) {
-        this.addMessage(this.input, 'user');
-        this.input = '';
-        this.isThinking = true;
-        setTimeout(() => {
-            this.addMessage('No.', 'bot');
-            this.isThinking = false;
-        }, Math.floor(Math.random() * 2000) + 1000);
+            let id = this.id++;
+            this.messages.push({ text: text, sender: sender, id: id, show: false });
+            this.$nextTick(() => {
+                this.messages[this.messages.length - 1].show = true;
+            });
+        },
+        sendMessage() {
+            if (this.input) {
+                this.addMessage(this.input, 'user');
+                this.input = '';
+                this.isThinking = true;
+                setTimeout(() => {
+                    this.addMessage('No.', 'bot');
+                    this.isThinking = false;
+                }, Math.floor(Math.random() * 2000) + 1000);
+            }
+        }
     }
-}
-
 });
 
     </script>
