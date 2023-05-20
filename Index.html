@@ -51,10 +51,12 @@
 }
 
 .chat-window {
-    overflow: auto;
+    overflow-y: auto;
+    flex-grow: 1;
     margin-bottom: 20px;
-    flex: 1 0 auto; /* This will allow the chat window to grow and shrink as needed, but not shrink below its content size */
+    max-height: calc(100vh - 120px); /* Adjust this value based on your layout */
 }
+
         .chat-input {
             width: 100%;
             padding: 10px;
