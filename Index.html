@@ -23,23 +23,22 @@
             overflow: hidden;
         }
         .app {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: var(--white);
-            border-radius: 5px;
-        }
-        .chat-window {
-    overflow: auto;
-    flex-grow: 1;
-    margin-bottom: 20px;
-    max-height: 80vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 40px); /* Adjust the height by subtracting the padding from the viewport height */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 5px;
 }
 
+.chat-window {
+    overflow: auto;
+    margin-bottom: 20px;
+    flex: 1 0 auto; /* This will allow the chat window to grow and shrink as needed, but not shrink below its content size */
+}
         .chat-input {
             width: 100%;
             padding: 10px;
