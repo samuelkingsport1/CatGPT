@@ -26,11 +26,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Fallback */
-    height: -moz-available;
-    height: -webkit-fill-available;
-    height: fill-available;
-    height: stretch;
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -255,6 +250,18 @@
             }
         });
     </script>
+<script>
+    function setAppHeight() {
+        const app = document.querySelector('.app');
+        app.style.height = window.innerHeight + 'px';
+    }
+
+    window.onload = function() {
+        setAppHeight();
+    }
+
+    window.addEventListener('resize', setAppHeight);
+</script>
 
 </body>
 </html>
