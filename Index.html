@@ -149,13 +149,14 @@
             @keyup.enter="sendMessage" 
             class="chat-input" 
             placeholder="Type a message...">
-        <button 
-            @click="sendMessage" 
-            :disabled="isThinking" 
+            <button 
+            @click="isThinking ? null : sendMessage" 
+            v-bind:class="{ inactive: isThinking }" 
             class="chat-button">
             <i class="fa fa-spinner" v-if="isThinking"></i>
             <span v-else>Ask</span>
         </button>
+        
     </div>
     <script>
 new Vue({
