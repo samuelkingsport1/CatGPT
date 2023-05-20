@@ -150,12 +150,13 @@
             class="chat-input" 
             placeholder="Type a message...">
             <button 
-            @click="isThinking ? null : sendMessage" 
+            @click="!isThinking && sendMessage()" 
             v-bind:class="{ inactive: isThinking }" 
             class="chat-button">
-            <i class="fa fa-spinner" v-if="isThinking"></i>
+            <i class="fa fa-spinner fa-spin" v-if="isThinking"></i>
             <span v-else>Ask</span>
         </button>
+        
         
     </div>
     <script>
