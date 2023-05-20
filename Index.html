@@ -173,19 +173,6 @@
 
 
     </style>
-<script>
-    function setAppHeight() {
-      const app = document.querySelector('.app');
-      app.style.height = window.innerHeight + 'px';
-    }
-    
-    window.addEventListener('resize', setAppHeight);
-    
-    // Initial set
-    setAppHeight();
-  </script>
-  
-    
 </head>
 <body>
     <div id="app" class="app">
@@ -268,6 +255,16 @@
             }
         });
     </script>
-    
+    <script>
+        function setAppHeight() {
+          const app = document.querySelector('.app');
+          app.style.height = window.innerHeight + 'px';
+        }
+        
+        window.addEventListener('resize', setAppHeight);
+        
+        // Initial set
+        setAppHeight();
+      </script>
 </body>
 </html>
