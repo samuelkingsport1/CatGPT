@@ -54,11 +54,14 @@
 }
 
 .chat-window {
+    display: flex;
+    flex-direction: column-reverse;
     overflow-y: auto;
     flex-grow: 1;
     margin-bottom: 20px;
-    max-height: calc(100vh - 120px); /* Adjust this value based on your layout */
+    max-height: calc(calc(var(--vh, 1vh) * 100) - 120px);
 }
+
 
         .chat-input {
             width: 100%;
