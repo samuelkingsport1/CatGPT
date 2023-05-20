@@ -12,148 +12,28 @@
             --coffee: hsla(23, 37%, 36%, 1);
             --charcoal: hsla(198, 17%, 30%, 1);
             --light-coffee: hsla(23, 37%, 66%, 1);
+            --vh: 0px; /* We initialize the custom vh unit here */
         }
         body {
             background-color: var(--charcoal);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100var(--vh);
+            height: calc(100vh - var(--vh)); /* Here we subtract the custom vh unit from the viewport height */
             box-sizing: border-box;
             overflow: hidden;
         }
-        .app {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: calc(100var(--vh) - 40px);
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--white);
-    border-radius: 5px;
-}
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-title {
-    margin: 0;
-    padding: 0;
-    color: var(--black);
-}
-
-.about-link {
-    color: var(--black);
-    text-decoration: none;
-}
-
-.chat-window {
-    overflow-y: auto;
-    flex-grow: 1;
-    margin-bottom: 20px;
-    max-height: calc(100var(--vh) - 120px);
-}
-
-        .chat-input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
-            border: 1px solid var(--black);
-            box-sizing: border-box;
-        }
-        .chat-button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: var(--coffee);
-            color: var(--white);
-            text-align: center;
-        }
-        .chat-button:disabled {
-            background-color: var(--light-coffee);
-            color: var(--black);
-        }
-        .message {
-            max-width: 80%;
-            margin: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: var(--black-2);
-            color: var(--white);
-            box-sizing: border-box;
-            transition: all 0.5s ease-in-out;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        .message.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .user {
-    text-align: right;
-    margin-left: auto;
-    margin-right: 0;
-    animation: bounce 0.5s; /* Apply bounce animation */
-}
-
-        .bot {
-            text-align: left;
-            margin-right: auto;
-            margin-left: 0;
-            animation: slam 0.5s;
-        }
-        .fa-spin {
-    -webkit-animation: spin 2s infinite linear;
-    animation: spin 2s infinite linear;
-}
-
-@-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-        .fa-spinner.show {
-            display: inline-block;
-            transition: opacity 0.5s;
-        }
-        @keyframes slam {
-            0% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        @keyframes bounce {
-    0% {
-        transform: translateY(-30px);
-        opacity: 0;
-    }
-    60% {
-        transform: translateY(10px);
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
+        /*... your other styles ...*/
     </style>
+    <script>
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        window.addEventListener('resize', setVH);
+        window.addEventListener('orientationchange', setVH);
+        document.addEventListener('DOMContentLoaded', setVH);
+    </script>
 </head>
 <body>
     <div id="app" class="app">
@@ -162,7 +42,6 @@
             <a href="/about.html" class="about-link">About</a>
         </div>
         <div class="chat-window" ref="chatWindow">
-        
             <div 
                 class="message" 
                 v-for="message in messages" 
@@ -176,26 +55,14 @@
             @keyup.enter="sendMessage" 
             class="chat-input" 
             placeholder="Type a message...">
-            <button 
+        <button 
             @click="!isThinking && sendMessage()" 
             v-bind:class="{ inactive: isThinking }" 
             class="chat-button">
             <i class="fa fa-spinner fa-spin" v-if="isThinking"></i>
             <span v-else>Ask</span>
         </button>
-        
-        
     </div>
-    <script>
-        function setVH() {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
-        window.addEventListener('resize', setVH);
-        window.addEventListener('orientationchange', setVH);
-        document.addEventListener('DOMContentLoaded', setVH);
-    </script>
-    
     <script>
         new Vue({
             el: '#app',
@@ -219,28 +86,24 @@
                     this.isThinking = true;
                     setTimeout(() => {
                         this.messages[this.messages.length - 1].show = true;
-                        this.scrollToBottom();
-                    }, 500);
-                    setTimeout(() => {
-                        this.addMessage('No.', 'bot');
-                        setTimeout(() => {
-                            this.messages[this.messages.length - 1].show = true;
-                            this.scrollToBottom();
-                        }, 500);
-                    }, Math.floor(Math.random() * 2000) + 1000);
-                    setTimeout(() => {
+                        thisquote("<!DOCTYPE html>\n<html>\n<head>", "this.messages[this.messages.length - 1].show = true;\n                        this")
+                            scrollToBottom();
                         this.isThinking = false;
-                        this.scrollToBottom();
-                    }, Math.floor(Math.random() * 2000) + 2000);
+                    }, 2000);
                 },
                 scrollToBottom() {
                     this.$nextTick(() => {
                         this.$refs.chatWindow.scrollTop = this.$refs.chatWindow.scrollHeight;
                     });
                 }
+            },
+            created() {
+                this.addMessage('Hello! How can I assist you today?', 'bot');
+            },
+            updated() {
+                this.scrollToBottom();
             }
         });
     </script>
-    
 </body>
 </html>
