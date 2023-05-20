@@ -167,19 +167,24 @@
 }
 @media (max-width: 600px) {
     .app {
-        height: calc(100vh - 50px); 
         margin-bottom: 50px;
     }
 }
 
 
     </style>
-    <script>
-        document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`);
-        window.addEventListener('resize', () => {
-            document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`);
-        });
-    </script>
+<script>
+    function setAppHeight() {
+      const app = document.querySelector('.app');
+      app.style.height = window.innerHeight + 'px';
+    }
+    
+    window.addEventListener('resize', setAppHeight);
+    
+    // Initial set
+    setAppHeight();
+  </script>
+  
     
 </head>
 <body>
