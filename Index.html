@@ -73,6 +73,7 @@
         }
 
         #messages {
+            position: relative;
             flex: 1;
             overflow: auto;
             display: flex;
@@ -80,13 +81,25 @@
             padding: 20px;
             gap: 10px;
         }
-
-        .message {
-            background: var(--light-coffee);
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 80%;
-        }
+        #watermark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: url('http://example.com/path/to/your/image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;
+}
+.message {
+    z-index: 1;
+    position: relative;
+    background: var(--white);
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+}
 
         .user {
             align-self: flex-end;
@@ -166,7 +179,7 @@
         <h1>CatGPT</h1>
         <a href="/about.html">About</a>
     </div>
-    <div id="messages"></div>
+    <div id="messages"><div id="watermark"></div></div>
     <div class="footer">
 
         <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !document.getElementById('askButton').disabled) sendMessage()">
