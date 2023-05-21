@@ -160,18 +160,6 @@
         </button>
     </div>
     <script>
-        function isYesNoQuestion(question) {
-            let keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
-            let words = question.toLowerCase().split(' ');
-    
-            for(let i = 0; i < keywords.length; i++) {
-                if(words.includes(keywords[i])) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    
         function sendMessage() {
             var input = document.getElementById('userInput');
             var messages = document.getElementById('messages');
@@ -192,15 +180,10 @@
             askText.style.display = 'none';
             askButton.disabled = true;
     
-            var yesNoResponses = ["Yes, indeed.", "Certainly.", "Absolutely."];
-            var otherResponses = ["Maybe.", "I'm not sure.", "I don't know."];
+            // Create your list of random responses here
+            var responses = ["Response 1", "Response 2", "Response 3", "Response 4", "Response 5"];
     
-            var response;
-            if (isYesNoQuestion(userMessage.textContent)) {
-                response = yesNoResponses[Math.floor(Math.random() * yesNoResponses.length)];
-            } else {
-                response = otherResponses[Math.floor(Math.random() * otherResponses.length)];
-            }
+            var response = responses[Math.floor(Math.random() * responses.length)];
     
             var delay = Math.floor(Math.random() * 4) + 1;
             setTimeout(function() {
@@ -215,6 +198,6 @@
             }, delay * 1000);
         }
     </script>
-    
+       
 </body>
 </html>
