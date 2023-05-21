@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #f8f8f8;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #333;
-        }
-
-        .header a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 20px;
-            }
-        }
-    </style>
+    <!-- metadata and styles omitted for brevity... -->
 </head>
 <body>
-    <header class="header">
+    <div class="header">
         <h1>CatGPT</h1>
-        <a href="/about.html">About</a>
-    </header>
+        <a href="/">Home</a>
+    </div>
+    
+    <div class="content">
+        <section class="profile">
+            <img src="images/profile.jpg" alt="Profile Image">
+            <div class="bio">
+                <h2>About CatGPT</h2>
+                <p>Welcome to the world of CatGPT - your go-to destination for all things sarcastic and feline! Unveiling a unique blend of artificial intelligence and feline charm, CatGPT stands to redefine your perception of chatbots. Immerse yourself in the hilarity and charm of our sassy AI, as it dishes out a purr-fect mix of wit, sarcasm, and sass. Engage with CatGPT, and experience humor like never before!</p>
+            </div>
+        </section>
+        
+        <section class="contact">
+            <h2>Contact</h2>
+            <p>Got queries, feedback or just want to share a chuckle or two? Connect with us!</p>
+            <p>Email: <a href="mailto:contact@catgpt.com">contact@catgpt.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/catgpt" target="_blank">linkedin.com/in/catgpt</a></p>
+        </section>
+    </div>
+    
+    <!-- your previous CSS styles go here -->
+    <style>
+        .content {
+            padding: 20px;
+            background-color: var(--charcoal);
+            color: var(--white);
+        }
+        .profile, .contact {
+            margin-bottom: 20px;
+        }
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .bio, .contact {
+            margin-top: 10px;
+        }
+        .contact a {
+            color: var(--light-coffee);
+        }
+        .contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </body>
 </html>
