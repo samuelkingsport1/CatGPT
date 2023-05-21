@@ -160,24 +160,12 @@
         </button>
     </div>
     <script>
-        function isYesNoQuestion(question) {
-            let keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
-            let words = question.toLowerCase().split(' ');
-    
-            for (let i = 0; i < keywords.length; i++) {
-                if (words.includes(keywords[i])) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    
         function isQuestion(message) {
             const trimmedMessage = message.trim().toLowerCase();
             const keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
             const endsWithQuestionMark = trimmedMessage.endsWith('?');
             const startsWithKeyword = keywords.some(word => trimmedMessage.startsWith(word));
-            return endsWithQuestionMark || (startsWithKeyword && endsWithQuestionMark);
+            return endsWithQuestionMark || startsWithKeyword;  // Changed from AND to OR
         }
     
         function sendMessage() {
@@ -200,8 +188,8 @@
             askText.style.display = 'none';
             askButton.disabled = true;
     
-            var questionResponses = ["Response to question 1", "Response to question 2", "Response to question 3"];
-            var statementResponses = ["Response to statement 1", "Response to statement 2", "Response to statement 3"];
+            var questionResponses = ["I'm a cat, not a philosopher.", "Meow, now ask me something I care about.", "What do I look like, an answer machine?"];
+            var statementResponses = ["Well, aren't you clever?", "Meow... I mean, wow.", "Cat's out of the bag now, isn't it?"];
     
             var response;
             if (isQuestion(userMessage.textContent)) {
@@ -223,6 +211,7 @@
             }, delay * 1000);
         }
     </script>
+    
     
        
 </body>
