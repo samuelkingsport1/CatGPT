@@ -135,11 +135,12 @@
     </div>
     <div id="messages"></div>
     <div class="footer">
+
+        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !document.getElementById('askButton').disabled) sendMessage()">
         <button onclick="sendMessage()" id="askButton">
             <span id="askText">Ask</span>
             <div class="spinner" id="spinner"></div>
         </button>
-        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !document.getElementById('askButton').disabled) sendMessage()">
     </div>
     <script>
         function sendMessage() {
