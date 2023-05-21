@@ -19,31 +19,95 @@
     <meta property="twitter:image" content="http://www.catgpt.com/images/catgpt-twitter.jpg">
     <meta charset="UTF-8">
     <style>
-    /* Your previous CSS code here */
-
-    .content {
-        padding: 20px;
-        background-color: var(--charcoal);
-        color: var(--white);
-    }
-    .profile, .contact {
-        margin-bottom: 20px;
-    }
-    .profile img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-    }
-    .bio, .contact {
-        margin-top: 10px;
-    }
-    .contact a {
-        color: var(--light-coffee);
-    }
-    .contact a:hover {
-        text-decoration: underline;
-    }
+        :root {
+            --black: hsla(0, 0%, 0%, 1);
+            --white: hsla(0, 0%, 99%, 1);
+            --black-2: hsla(0, 0%, 0%, 1);
+            --coffee: hsla(23, 37%, 36%, 1);
+            --charcoal: hsla(198, 17%, 30%, 1);
+            --light-coffee: hsla(23, 37%, 66%, 1);
+        }
+    
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background: var(--charcoal);
+            color: var(--white);
+        }
+    
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: var(--coffee);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
+    
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+    
+        .profile, .contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background: var(--black-2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+    
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    
+        .bio h2, .contact h2 {
+            color: var(--light-coffee);
+        }
+    
+        .contact a {
+            color: var(--white);
+        }
+    
+        .contact a:hover {
+            text-decoration: underline;
+        }
+    
+        @media screen and (max-width: 600px) {
+            .header h1 {
+                margin: 0;
+                padding: 0;
+            }
+            .header {
+                flex-direction: row;
+                align-items: stretch;
+            }
+            .header a {
+                order: 2;
+                align-self: flex-end;
+                margin: 0;
+            }
+        }
     </style>
+    
 </head>
 <body>
     <div class="header">
