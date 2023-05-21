@@ -164,8 +164,8 @@
             let keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
             let words = question.toLowerCase().split(' ');
     
-            for(let i = 0; i < keywords.length; i++) {
-                if(words.includes(keywords[i])) {
+            for (let i = 0; i < keywords.length; i++) {
+                if (words.includes(keywords[i])) {
                     return true;
                 }
             }
@@ -174,7 +174,8 @@
     
         function isQuestion(message) {
             const trimmedMessage = message.trim().toLowerCase();
-            return (trimmedMessage.includes('?') || keywords.some(word => trimmedMessage.startsWith(word)));
+            const keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
+            return trimmedMessage.includes('?') || keywords.some(word => trimmedMessage.startsWith(word));
         }
     
         function sendMessage() {
@@ -208,7 +209,7 @@
             }
     
             var delay = Math.floor(Math.random() * 4) + 1;
-            setTimeout(function() {
+            setTimeout(function () {
                 var botMessage = document.createElement('div');
                 botMessage.className = 'message bot';
                 botMessage.textContent = response;
