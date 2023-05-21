@@ -175,7 +175,9 @@
         function isQuestion(message) {
             const trimmedMessage = message.trim().toLowerCase();
             const keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
-            return trimmedMessage.includes('?') || keywords.some(word => trimmedMessage.startsWith(word));
+            const endsWithQuestionMark = trimmedMessage.endsWith('?');
+            const startsWithKeyword = keywords.some(word => trimmedMessage.startsWith(word));
+            return endsWithQuestionMark || (startsWithKeyword && endsWithQuestionMark);
         }
     
         function sendMessage() {
