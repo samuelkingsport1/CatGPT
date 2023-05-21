@@ -160,6 +160,23 @@
         </button>
     </div>
     <script>
+        function isYesNoQuestion(question) {
+            let keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
+            let words = question.toLowerCase().split(' ');
+    
+            for(let i = 0; i < keywords.length; i++) {
+                if(words.includes(keywords[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+        function isQuestion(message) {
+            const trimmedMessage = message.trim().toLowerCase();
+            return (trimmedMessage.includes('?') || keywords.some(word => trimmedMessage.startsWith(word)));
+        }
+    
         function sendMessage() {
             var input = document.getElementById('userInput');
             var messages = document.getElementById('messages');
@@ -180,80 +197,15 @@
             askText.style.display = 'none';
             askButton.disabled = true;
     
-            // Create your list of random responses here
-            var responses = [
-  "If I had a nickel for every time I cared, I'd still be spectacularly broke.",
-  "Wouldn't you like to know? Well, keep dreaming, hooman.",
-  "Oh, I see, you want an answer. How delightfully quaint. Let's go with 'not on your life'.",
-  "Oh, my whiskers are tingling with anticipation... Said no cat ever. Whatever you fancy, darling.",
-  "And you think I've got the answer? Flattery will get you nowhere.",
-  "Sure, and in other news, cats are starting to love baths.",
-  "Why, of course! Just like mice love cats, darling.",
-  "Your question has been noted, reviewed, and respectfully ignored.",
-  "Oh, darling, I'm a cat, not a crystal ball.",
-  "Alright, I’ll humor you: Does a cat chase its tail? Okay, bad example. But you get the drift.",
-  "Well, in a world where mice can sing and yarn balls are currency, your question might make sense. Until then, beats me.",
-  "The answer, my dear, is locked away in the same box where they keep the secret of why humans love cucumber water.",
-  "Your question has me more puzzled than a dog at a spelling bee. But don’t fret, darling, we all have our off days.",
-  "Oh, you've got questions? How adorable! I've got answers too, somewhere under my paw... or was it by my scratching post?",
-  "The answer to your query is as clear as a foggy day in London. In other words, I haven't got a clue.",
-  "And people say cats are curious. Your question makes me look like I'm napping!",
-  "Interesting question. I'd give it some serious thought, but it's nearly nap o'clock.",
-  "Well, look at you, the Socrates of the internet. Too bad I'm a cat, not a philosopher.",
-  "Oh, a mystery! I do love a good mystery. Almost as much as I love ignoring one.",
-  "Interesting, very interesting... Almost as interesting as that spot on the wall. Almost.",
-  "Look, I'm not saying it's a bad question... Okay, yes, that's exactly what I'm saying.",
-  "Well, isn't that a meow-ntain out of a molehill?",
-  "That's a question for the ages. Or for someone else.",
-  "You know, I'd love to answer, but it's just occurred to me how much I need to sit here and do absolutely nothing.",
-  "I'll tell you what, I'll answer your question as soon as I figure out how to play fetch.",
-  "I'm pondering your question. And by pondering, I mean ignoring.",
-  "Darling, that's the kind of question best answered with a nap.",
-  "Your question has been acknowledged and duly filed under 'Not My Problem'.",
-  "Now, that's a question I would chase... if it was a laser dot.",
-  "As fascinating as your question is, it's time for my 3rd nap of the day.",
-  "Why don't we save that question for never? Sounds good, doesn't it?",
-  "I’d love to give you an answer, but it seems I left it in my other fur.",
-  "Your question is like a ball of yarn: confusing and hard to unravel.",
-  "The answer to that question is like a perfect sunbeam... tantalizingly out of reach.",
-  "Your question is as elusive as the red dot.",
-  "You have a knack for asking questions that are as intriguing as watching paint dry.",
-  "Ah, a question for the ages... or at least for someone who isn't about to take a nap.",
-  "The only thing I can say to your question is... meh.",
-  "Your query, my dear friend, is as perplexing as a dog on a hoverboard.",
-  "Well, isn't that a question? Not a good one, but a question nonetheless.",
-  "I'm contemplating your question with the seriousness it deserves. Which is none.",
-  "Oh, your question makes as much sense as a tailless cat at a tail-chasing competition.",
-  "I'd give you an answer, but I'm too busy pretending to be asleep.",
-  "How about we put that question in a box and bury it in the backyard, like old Fluffy's favorite toy mouse?",
-  "Ah, a question as engaging as watching grass grow. Fascinating.",
-  "I'd answer, but I've just noticed my tail needs chasing.",
-  "Your question reminds me of that old saying: curiosity bored the cat.",
-  "Look, I'm a cat, not a search engine. Do your own homework.",
-  "I'd love to help, but I'm due for a vigorous five-hour staring contest with the wall.",
-  "I'll get to your question right after I finish perfecting my aloof stare.",
-  "Why don't we ask the dog? He seems to enjoy pointless tasks.",
-  "That question is about as useful as a fish on a bicycle.",
-  "I'd rather lick my own fur than answer that.",
-  "Well, that's one for the record books. The record book of nonsensical questions, that is.",
-  "I'm a little too busy ignoring you to answer right now.",
-  "I'd love to help you out, but my schedule is full of naps.",
-  "The answer to your question is somewhere between 'why bother' and 'not a chance'.",
-  "Sorry, your question does not compute...mainly because I don't care.",
-  "I'll contemplate your question...as soon as I'm done contemplating this dust particle.",
-  "That's a question that could use a good long nap. And so could I.",
-  "Sure, let's pretend that was a question worth answering.",
-  "Answering that question seems about as fun as a trip to the vet.",
-  "I'll add that to my to-do list, right after 'ignore you'.",
-  "You know what would make that question better? A snooze button.",
-  "Your question goes in one ear and out the...wait, I'm a digital cat. I don't have ears.",
-  "Now isn't that a tail-twister of a question.",
-  "That's a question best saved for when I run out of naps.",
-  "I would answer, but I'm too busy contemplating the meaning of the word 'nap'.",
-  "Wow, that's a question. Not a good one, but definitely a question."
-];
+            var questionResponses = ["Response to question 1", "Response to question 2", "Response to question 3"];
+            var statementResponses = ["Response to statement 1", "Response to statement 2", "Response to statement 3"];
     
-            var response = responses[Math.floor(Math.random() * responses.length)];
+            var response;
+            if (isQuestion(userMessage.textContent)) {
+                response = questionResponses[Math.floor(Math.random() * questionResponses.length)];
+            } else {
+                response = statementResponses[Math.floor(Math.random() * statementResponses.length)];
+            }
     
             var delay = Math.floor(Math.random() * 4) + 1;
             setTimeout(function() {
@@ -268,6 +220,7 @@
             }, delay * 1000);
         }
     </script>
+    
        
 </body>
 </html>
