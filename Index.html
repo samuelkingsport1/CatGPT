@@ -161,28 +161,73 @@
     </div>
     <script>
         function sendMessage() {
-            var input = document.getElementById('userInput');
-            var messages = document.getElementById('messages');
-            var askButton = document.getElementById('askButton');
-            var askText = document.getElementById('askText');
-            var spinner = document.getElementById('spinner');
+    var input = document.getElementById('userInput');
+    var messages = document.getElementById('messages');
+    var askButton = document.getElementById('askButton');
+    var askText = document.getElementById('askText');
+    var spinner = document.getElementById('spinner');
 
-            // Prevent blank message submission
-            if (input.value.trim() === '') return;
+    // Prevent blank message submission
+    if (input.value.trim() === '') return;
 
-            // User message
-            var userMessage = document.createElement('div');
-            userMessage.className = 'message user';
-            userMessage.textContent = input.value;
-            messages.prepend(userMessage);
+    // User message
+    var userMessage = document.createElement('div');
+    userMessage.className = 'message user';
+    userMessage.textContent = input.value;
+    messages.prepend(userMessage);
 
-            // Clear input
-            input.value = '';
+    // Clear input
+    input.value = '';
 
-            // Show spinner and disable button
-            spinner.style.display = 'inline-block';
-            askText.style.display = 'none';
-            askButton.disabled = true;
+    // Show spinner and disable button
+    spinner.style.display = 'inline-block';
+    askText.style.display = 'none';
+    askButton.disabled = true;
+
+    // Create two arrays with different responses
+    var yesNoResponses = ["Yes, indeed.", "Certainly.", "Absolutely."];
+    var otherResponses = ["Maybe.", "I'm not sure.", "I don't know."];
+
+    // Select a response based on the question classification
+    var response;
+    if (isYesNoQuestion(userMessage.textContent)) {
+        response = yesNoResponses[Math.floor(Math.random() * yesNoResponses.length)];
+    } else {
+        response = otherResponses[Math.floor(Math.random() * otherResponses.length)];
+    }
+
+    // Simulate bot delay
+    var delay = Math.floor(Math.random() * 4) + 1; // random delay between 1 to 4 seconds
+    setTimeout(function() {
+        // CatGPT response
+        var botMessage = document.createElement('div');
+        botMessage.className = 'message bot';
+        botMessage.textContent = response;  // set the bot response to the selected response
+        messages.prepend(botMessage);
+
+        // Hide spinner and enable button
+        spinner.style.display = 'none';
+        askText.style.display = 'inline';
+        askButton.disabled = false;
+    }, delay * 1000);
+}
+
+            function isYesNoQuestion(question) {
+    // This list of keywords can be expanded based on your specific use-case
+    let keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
+    
+    // Splitting question into individual words
+    let words = question.toLowerCase().split(' ');
+
+    // Checking if any of the keywords are present in the question
+    for(let i = 0; i < keywords.length; i++) {
+        if(words.includes(keywords[i])) {
+            return true;
+        }
+    }
+
+    return false;
+}
 
             // Simulate bot delay
             var delay = Math.floor(Math.random() * 4) + 1; // random delay between 1 to 4 seconds
