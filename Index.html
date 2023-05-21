@@ -3,37 +3,91 @@
 <head>
     <title>CatGPT Chatbot</title>
     <style>
+        :root {
+            --black: hsla(0, 0%, 0%, 1);
+            --white: hsla(0, 0%, 99%, 1);
+            --black-2: hsla(0, 0%, 0%, 1);
+            --coffee: hsla(23, 37%, 36%, 1);
+            --charcoal: hsla(198, 17%, 30%, 1);
+            --light-coffee: hsla(23, 37%, 66%, 1);
+        }
+
         body, html {
             height: 100%;
             margin: 0;
             display: flex;
             flex-direction: column;
+            font-family: Arial, sans-serif;
+            background: var(--charcoal);
+            color: var(--white);
         }
+
         .header, .footer {
             position: sticky;
-            background: #f1f1f1;
-            padding: 10px;
-            text-align: left;
+            background: var(--coffee);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
         }
+
         .header {
             top: 0;
         }
+
         .footer {
             bottom: 0;
+            flex-direction: row-reverse;
         }
+
         #messages {
             flex: 1;
             overflow: auto;
             display: flex;
             flex-direction: column-reverse;
+            padding: 20px;
+            gap: 10px;
+        }
+
+        .message {
+            background: var(--light-coffee);
             padding: 10px;
+            border-radius: 10px;
+            max-width: 60%;
         }
+
+        .user {
+            align-self: flex-end;
+            background: var(--coffee);
+        }
+
         #userInput {
-            width: 80%;
+            flex: 1;
+            margin-right: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
         }
+
+        button {
+            background: var(--coffee);
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
         a {
-            float: right;
+            color: var(--white);
+            text-decoration: none;
         }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
@@ -43,8 +97,8 @@
     </div>
     <div id="messages"></div>
     <div class="footer">
-        <input id="userInput" type="text">
         <button onclick="sendMessage()">Ask</button>
+        <input id="userInput" type="text">
     </div>
     <script>
         function sendMessage() {
@@ -53,12 +107,14 @@
 
             // User message
             var userMessage = document.createElement('div');
-            userMessage.textContent = 'You: ' + input.value;
+            userMessage.className = 'message user';
+            userMessage.textContent = input.value;
             messages.prepend(userMessage);
 
             // CatGPT response
             var botMessage = document.createElement('div');
-            botMessage.textContent = 'CatGPT: No';
+            botMessage.className = 'message bot';
+            botMessage.textContent = 'No';
             messages.prepend(botMessage);
 
             // Clear input
