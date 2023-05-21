@@ -134,16 +134,17 @@
     <div id="messages"></div>
     <div class="footer">
         <button onclick="sendMessage()" id="askButton">
-            Ask
+            <span id="askText">Ask</span>
             <div class="spinner" id="spinner"></div>
         </button>
-        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !document.getElementById('spinner').style.display) sendMessage()">
+        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !document.getElementById('askButton').disabled) sendMessage()">
     </div>
     <script>
         function sendMessage() {
             var input = document.getElementById('userInput');
             var messages = document.getElementById('messages');
             var askButton = document.getElementById('askButton');
+            var askText = document.getElementById('askText');
             var spinner = document.getElementById('spinner');
 
             // Prevent blank message submission
@@ -160,6 +161,7 @@
 
             // Show spinner and disable button
             spinner.style.display = 'inline-block';
+            askText.style.display = 'none';
             askButton.disabled = true;
 
             // Simulate bot delay
@@ -173,6 +175,7 @@
 
                 // Hide spinner and enable button
                 spinner.style.display = 'none';
+                askText.style.display = 'inline';
                 askButton.disabled = false;
             }, delay * 1000);
         }
