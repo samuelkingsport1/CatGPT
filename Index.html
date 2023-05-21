@@ -136,13 +136,17 @@
             text-decoration: underline;
         }
         @media screen and (max-width: 600px) {
-            .header, .footer {
+            .footer {
                 flex-direction: column;
                 align-items: stretch;
             }
             .header h1 {
                 margin: 0;
                 padding: 0;
+            }
+            .header {
+                flex-direction: row;
+                align-items: stretch;
             }
             .header a {
                 order: 2;
