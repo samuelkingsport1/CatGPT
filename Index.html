@@ -47,9 +47,17 @@
         }
 
         .header {
-            top: 0;
+    top: 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
 
-        }
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;  /* You can adjust this value according to your needs */
+    margin: auto;  /* This centers the .header-content horizontally */
+}
 
         .footer {
             bottom: 0;
@@ -109,17 +117,14 @@
             .header, .footer {
                 flex-direction: column;
                 align-items: stretch;
-            }
+           
   
-
-    .header h1 {
-        order: 1; /* This ensures the title stays on the left */
+    .header h1, .header a {
+        font-size: 16px;  /* Optional: decrease font size to fit small screens */
     }
-
-    .header a {
-        order: 2; /* This ensures the link stays on the right */
-        align-self: flex-end; /* Aligns the link to the end of the flex-container */
-    }
+}
+}
+            
             #userInput, button {
                 width: 100%;
                 margin: 10px 0;
@@ -143,9 +148,12 @@
 </head>
 <body>
     <div class="header">
-        <h1>CatGPT</h1>
-        <a href="/about.html">About</a>
+        <div class="header-content"> <!-- Add a wrapper around the elements -->
+            <h1>CatGPT</h1>
+            <a href="/about.html">About</a>
+        </div>
     </div>
+    
     <div id="messages"></div>
     <div class="footer">
 
