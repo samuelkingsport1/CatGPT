@@ -36,15 +36,40 @@
             color: var(--white);
         }
 
-        .header, .footer {
-            position: sticky;
-            background: var(--coffee);
-            padding: 20px;
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            background-color: var(--charcoal);
+            color: var(--white);
+            padding: 10px;
         }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            bottom: 0;
+            background-color: var(--charcoal);
+            color: var(--white);
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+        #userInput {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        @media (max-width: 600px) {
+            #userInput {
+                margin-bottom: 10px;
+            }
+            .footer {
+                flex-direction: column;
+            }
+        }
+ 
 
         .header {
             top: 0;
