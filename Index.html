@@ -60,8 +60,16 @@
             box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
         }
         .header {
-            top: 0;
-        }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background: var(--coffee);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 3;
+    }
         .footer {
             bottom: 0;
             flex-direction: row;
