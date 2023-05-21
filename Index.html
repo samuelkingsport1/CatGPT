@@ -110,7 +110,18 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+            .header {
+        flex-wrap: wrap; /* This will allow the items to wrap onto the next line if there isn't enough space */
+    }
 
+    .header h1 {
+        order: 1; /* This ensures the title stays on the left */
+    }
+
+    .header a {
+        order: 2; /* This ensures the link stays on the right */
+        align-self: flex-end; /* Aligns the link to the end of the flex-container */
+    }
             #userInput, button {
                 width: 100%;
                 margin: 10px 0;
