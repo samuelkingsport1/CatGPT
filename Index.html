@@ -54,7 +54,7 @@
             background: var(--light-coffee);
             padding: 10px;
             border-radius: 10px;
-            max-width: 60%;
+            max-width: 80%;
         }
 
         .user {
@@ -68,6 +68,7 @@
             padding: 10px;
             border-radius: 10px;
             border: none;
+            font-size: 18px;
         }
 
         button {
@@ -77,6 +78,7 @@
             border-radius: 10px;
             color: var(--white);
             cursor: pointer;
+            font-size: 18px;
         }
 
         a {
@@ -86,6 +88,26 @@
 
         a:hover {
             text-decoration: underline;
+        }
+
+        @media screen and (max-width: 600px) {
+            .header, .footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            #userInput, button {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            #messages {
+                padding: 10px;
+            }
+
+            h1, a, .message {
+                font-size: 18px;
+            }
         }
 
     </style>
