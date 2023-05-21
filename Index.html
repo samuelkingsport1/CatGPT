@@ -12,7 +12,20 @@
             --charcoal: hsla(198, 17%, 30%, 1);
             --light-coffee: hsla(23, 37%, 66%, 1);
         }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
+        .spinner {
+            border: 6px solid var(--light-coffee);
+            border-top: 6px solid var(--coffee);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 2s linear infinite;
+            display: none;
+        }
         body, html {
             height: 100%;
             margin: 0;
@@ -120,13 +133,21 @@
     </div>
     <div id="messages"></div>
     <div class="footer">
-        <button onclick="sendMessage()">Ask</button>
-        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter') sendMessage()">
+        <button onclick="sendMessage()" id="askButton">
+            Ask
+            <div class="spinner" id="spinner"></div>
+        </button>
+        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !document.getElementById('spinner').style.display) sendMessage()">
     </div>
     <script>
         function sendMessage() {
             var input = document.getElementById('userInput');
             var messages = document.getElementById('messages');
+            var askButton = document.getElementById('askButton');
+            var spinner = document.getElementById('spinner');
+
+            // Prevent blank message submission
+            if (input.value.trim() === '') return;
 
             // User message
             var userMessage = document.createElement('div');
@@ -134,14 +155,26 @@
             userMessage.textContent = input.value;
             messages.prepend(userMessage);
 
-            // CatGPT response
-            var botMessage = document.createElement('div');
-            botMessage.className = 'message bot';
-            botMessage.textContent = 'No';
-            messages.prepend(botMessage);
-
             // Clear input
             input.value = '';
+
+            // Show spinner and disable button
+            spinner.style.display = 'inline-block';
+            askButton.disabled = true;
+
+            // Simulate bot delay
+            var delay = Math.floor(Math.random() * 4) + 1; // random delay between 1 to 4 seconds
+            setTimeout(function() {
+                // CatGPT response
+                var botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.textContent = 'No';
+                messages.prepend(botMessage);
+
+                // Hide spinner and enable button
+                spinner.style.display = 'none';
+                askButton.disabled = false;
+            }, delay * 1000);
         }
     </script>
 </body>
