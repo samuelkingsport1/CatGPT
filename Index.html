@@ -177,7 +177,7 @@
             const keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were'];
             const endsWithQuestionMark = trimmedMessage.endsWith('?');
             const startsWithKeyword = keywords.some(word => trimmedMessage.startsWith(word));
-            return endsWithQuestionMark || (startsWithKeyword && endsWithQuestionMark);
+            return endsWithQuestionMark || (startsWithKeyword && (trimmedMessage.split(' ').length > 1 || endsWithQuestionMark));
         }
     
         function sendMessage() {
