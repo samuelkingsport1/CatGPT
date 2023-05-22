@@ -5,25 +5,24 @@
     <title>CatGPT - The first AFI, Artificial Feline Intelligence</title>
     <meta name="title" content="CatGPT - The Sassy, Satirical Chatbot">
     <meta name="description" content="Meet CatGPT, here to serve you a heaping plate of wit, sarcasm, and feline charm. Not your usual AI experience - it's a hiss-terically fun time!">
-     <!-- Open Graph / Facebook -->
-     <meta property="og:type" content="website">
-     <meta property="og:url" content="http://www.catgpt.com/">
-     <meta property="og:title" content="CatGPT - The Sassy, Satirical Chatbot">
-     <meta property="og:description" content="Dive into a world of wit, humor, and sarcasm with CatGPT, the internet's sassiest chatbot. Expect purrsonality and feline charm like you've never seen before in AI.">
-     <meta property="og:image" content="http://www.catgpt.com/images/catgpt-og.jpg">
- 
-     <!-- Twitter -->
-     <meta property="twitter:card" content="summary_large_image">
-     <meta property="twitter:url" content="http://www.catgpt.com/">
-     <meta property="twitter:title" content="CatGPT - The Sassy, Satirical Chatbot">
-     <meta property="twitter:description" content="Experience AI with a twist! CatGPT, the internet's sassiest chatbot, offers humor, wit, and a charming feline spirit.">
-     <meta property="twitter:image" content="http://www.catgpt.com/images/catgpt-twitter.jpg">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.catgpt.com/">
+    <meta property="og:title" content="CatGPT - The Sassy, Satirical Chatbot">
+    <meta property="og:description" content="Dive into a world of wit, humor, and sarcasm with CatGPT, the internet's sassiest chatbot. Expect purrsonality and feline charm like you've never seen before in AI.">
+    <meta property="og:image" content="http://www.catgpt.com/images/catgpt-og.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://www.catgpt.com/">
+    <meta property="twitter:title" content="CatGPT - The Sassy, Satirical Chatbot">
+    <meta property="twitter:description" content="Experience AI with a twist! CatGPT, the internet's sassiest chatbot, offers humor, wit, and a charming feline spirit.">
+    <meta property="twitter:image" content="http://www.catgpt.com/images/catgpt-twitter.jpg">
     <meta charset="UTF-8">
     <style>
         :root {
             --black: hsla(0, 0%, 0%, 1);
             --white: hsla(0, 0%, 99%, 1);
-            --black-2: hsla(0, 0%, 0%, 1);
             --coffee: hsla(23, 37%, 36%, 1);
             --charcoal: hsla(198, 17%, 30%, 1);
             --light-coffee: hsla(23, 37%, 66%, 1);
@@ -60,52 +59,44 @@
             box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
         }
         .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px;
-        background: var(--coffee);
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 3;
-    }
+            top: 0;
+            z-index: 3;
+        }
         .footer {
             bottom: 0;
             flex-direction: row;
         }
         #messages {
-        position: relative;
-        flex: 1;
-        overflow: auto;
-        display: flex;
-        flex-direction: column-reverse;
-        padding: 20px;
-        gap: 10px;
-        background-color: white;
-    }
-    #watermark {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-image: url('catgpt.png');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        opacity: 0.5;
-        pointer-events: none;
-        z-index: 1;
-    }
-
+            position: relative;
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            flex-direction: column-reverse;
+            padding: 20px;
+            gap: 10px;
+            background-color: white;
+        }
+        #watermark {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-image: url('catgpt.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
         .message {
             background: var(--charcoal);
             padding: 10px;
             border-radius: 10px;
             max-width: 80%;
             position: relative;
-        z-index: 2;
+            z-index: 2;
         }
         .user {
             align-self: flex-end;
@@ -168,90 +159,69 @@
             }
         }
     </style>
-    
-    
 </head>
 <body>
     <div class="header">
         <h1>CatGPT</h1>
         <a href="/about.html">About</a>
     </div>
-    <div id="messages"><div id="watermark"></div></div>
+    <div id="messages">
+        <div id="watermark"></div>
+    </div>
     <div class="footer">
-
-        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !document.getElementById('askButton').disabled) sendMessage()">
+        <input id="userInput" type="text" onkeydown="if(event.key === 'Enter' && !askButton.disabled) sendMessage()">
         <button onclick="sendMessage()" id="askButton">
             <span id="askText">Ask</span>
             <div class="spinner" id="spinner"></div>
         </button>
     </div>
     <script>
-function isQuestion(message) {
-    const trimmedMessage = message.trim().toLowerCase();
-    const keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were', 'why', 'where'];
-    const endsWithQuestionMark = trimmedMessage.endsWith('?');
-    const startsWithKeyword = keywords.some(word => trimmedMessage.startsWith(word));
-    return endsWithQuestionMark || startsWithKeyword;
-}
+        const keywords = ['is', 'are', 'do', 'does', 'will', 'can', 'has', 'have', 'would', 'should', 'could', 'did', 'was', 'were', 'why', 'where'];
+        const questionResponses = ["If I had a nickel for every time I cared, I'd still be spectacularly broke.", "Wouldn't you like to know?", "Does a cat chase lasers? (I'll take that as a yes.)", "Are you familiar with the saying 'curiosity killed the cat'? You're starting to sound a lot like that cat.", "Oh, a question! I haven't heard one of those before (eye roll).", "I'm here to serve you a heap of sass, not answers."];
 
-    
         function sendMessage() {
-            var input = document.getElementById('userInput');
-            var messages = document.getElementById('messages');
-            var askButton = document.getElementById('askButton');
-            var askText = document.getElementById('askText');
-            var spinner = document.getElementById('spinner');
-    
-            if (input.value.trim() === '') return;
-    
-            var userMessage = document.createElement('div');
-            userMessage.className = 'message user';
-            userMessage.textContent = input.value;
-            messages.prepend(userMessage);
-    
-            input.value = '';
-    
-            spinner.style.display = 'inline-block';
-            askText.style.display = 'none';
-            askButton.disabled = true;
-    
-            var questionResponses = [
-    "If I had a nickel for every time I cared, I'd still be spectacularly broke.",
-    "Wouldn't you like to know? Well, keep dreaming, hooman.",
-    "Oh, I see, you want an answer. How delightfully quaint. Let's go with 'not on your life'.",
-    "Oh, my whiskers are tingling with anticipation... Said no cat ever. Whatever you fancy, darling.",
-    "And you think I've got the answer? Flattery will get you nowhere."];
+            const userInput = document.getElementById('userInput');
+            const messageText = userInput.value.trim();
+            userInput.value = '';
 
-var statementResponses = [
-            "Oh, how fascinating. Or at least it would be if I weren't so busy grooming myself.",
-            "You know, I'd care more if it involved an unlimited supply of tuna.",
-            "As statements go, that was almost as thrilling as watching a slug cross a sidewalk."];
-    
-            var response;
-            if (isQuestion(userMessage.textContent)) {
-                response = questionResponses[Math.floor(Math.random() * questionResponses.length)];
-            } else {
-                response = statementResponses[Math.floor(Math.random() * statementResponses.length)];
+            if (messageText) {
+                // Disable ask button and show spinner
+                const askButton = document.getElementById('askButton');
+                const askText = document.getElementById('askText');
+                const spinner = document.getElementById('spinner');
+                askButton.disabled = true;
+                askText.style.display = 'none';
+                spinner.style.display = 'block';
+
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user');
+                userMessage.textContent = messageText;
+                document.getElementById('messages').appendChild(userMessage);
+
+                setTimeout(() => {
+                    // Add bot message
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot');
+                    botMessage.textContent = getBotResponse(messageText);
+                    document.getElementById('messages').appendChild(botMessage);
+
+                    // Enable ask button and hide spinner
+                    askButton.disabled = false;
+                    askText.style.display = 'block';
+                    spinner.style.display = 'none';
+                }, 2000);
             }
-    
-            var delay = Math.floor(Math.random() * 4) + 1;
-            setTimeout(function () {
-                var botMessage = document.createElement('div');
-                botMessage.className = 'message bot';
-                botMessage.textContent = response;
-                messages.prepend(botMessage);
-    
-                spinner.style.display = 'none';
-                askText.style.display = 'inline';
-                askButton.disabled = false;
-            }, delay * 1000);
+        }
+
+        function getBotResponse(message) {
+            const lowerCaseMessage = message.toLowerCase();
+            if (keywords.some(keyword => lowerCaseMessage.startsWith(keyword) || lowerCaseMessage.includes(' ' + keyword + ' '))) {
+                return questionResponses[Math.floor(Math.random() * questionResponses.length)];
+            } else {
+                return "I'm just a catbot, I don't have all the answers. Try asking me something else.";
+            }
         }
     </script>
-    
-    
-    
-    
-    
-       
 </body>
 </html>
